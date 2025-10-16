@@ -15,6 +15,10 @@ timestamp_csv = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
 buffer_size = 65536
 
 for file in (os.listdir(path)[:]):  # [Start:End]
+
+    if os.path.isdir(path+file):
+        continue
+
     files = { "file": (f"{file}", open(f"{path+file}", "rb"), f"{file_type}") }
     headers = {
         "accept": "application/json",
