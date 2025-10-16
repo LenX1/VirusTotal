@@ -18,8 +18,11 @@ for file in (os.listdir()[:]):  # [Start:End]
         "x-apikey": f"{Api_Key}",
     }
     response = requests.post(url, files=files, headers=headers)
+    timestamp_file = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
 
     with open(f'VirusTotal-Upload_{timestamp_csv}.csv', 'a') as f:
-        f.write(f'{response.text}\n')
+        f.write(f'{response.text} ,{timestamp_file}\n')
+
+
 
 
