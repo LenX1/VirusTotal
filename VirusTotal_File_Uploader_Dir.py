@@ -18,6 +18,8 @@ for file in (os.listdir(path)[:]):  # [Start:End]
 
     if os.path.isdir(path+file):
         continue
+    elif file.endswith(".exe"):  #  check for specific file endings
+        continue
 
     files = { "file": (f"{file}", open(f"{path+file}", "rb"), f"{file_type}") }
     headers = {
