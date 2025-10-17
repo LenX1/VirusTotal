@@ -14,6 +14,19 @@ url = "https://www.virustotal.com/api/v3/files"
 timestamp_csv = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
 buffer_size = 65536
 
+upload_daily_limit = 500
+date_today = time.strftime("%Y%m%d")
+url_api_usage = f"https://www.virustotal.com/api/v3/users/{Api_Key}/api_usage?start_date={date_today}&end_date={date_today}"
+headers_api_usage = {
+    "accept": "application/json",
+    "x-apikey": f"{Api_Key}"
+}
+response_api_usage = requests.get(url_api_usage, headers=headers_api_usage)
+api_usage_daily = int(response_api_usage.text.split()[9][:-3])
+if api_usage_daily>=upload_daily_limit:
+    print("Daily limit exceeded")
+    exit()
+
 for file in (os.listdir(path)[:]):  # [Start:End]
 
     if os.path.isdir(path+file):
