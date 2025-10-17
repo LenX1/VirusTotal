@@ -23,11 +23,14 @@ headers_api_usage = {
 }
 response_api_usage = requests.get(url_api_usage, headers=headers_api_usage)
 api_usage_daily = int(response_api_usage.text.split()[9][:-3])
-if api_usage_daily>=upload_daily_limit:
-    print("Daily limit exceeded")
-    exit()
 
 for file in (os.listdir(path)[:]):  # [Start:End]
+
+    if api_usage_daily >= upload_daily_limit:
+        print("Daily limit exceeded")
+        exit()
+    else:
+        api_usage_daily+=1
 
     if os.path.isdir(path+file):
         continue
